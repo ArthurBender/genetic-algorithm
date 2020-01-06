@@ -1,0 +1,41 @@
+<div class="row">
+  <h1 class="col page-title">Experiments</h1>
+</div>
+
+<div class="row">
+  <div class="col">  
+    <table class="table table-sm table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th>Word</th>
+          <th>Population</th>
+          <th>Mutation</th>
+          <th>Generations</th>
+          <th>Fitness</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @experiments.each do |experiment| %>
+          <tr>
+            <td><%= experiment.word %></td>
+            <td><%= experiment.population %></td>
+            <td><%= experiment.mutation %></td>
+            <td><%= experiment.generations %></td>
+            <td><%= experiment.fitness %></td>
+            <td><%= link_to 'Show', experiment %></td>
+            <td><%= link_to 'Edit', edit_experiment_path(experiment) %></td>
+            <td><%= link_to 'Destroy', experiment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <%= link_to 'New Experiment', new_experiment_path, class: "btn btn-primary" %>
+  </div>
+</div>

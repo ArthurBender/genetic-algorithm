@@ -1,0 +1,18 @@
+<div class="row">
+  <h1 class="col page-title">New Experiment</h1>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        <%= render 'form', experiment: @experiment %>
+
+        <div class="row">
+            <div class="col">
+                <%= link_to 'Back', experiments_path, class: "btn btn-outline-secondary" %>
+                <button class="exec-experiment btn btn-success float-right">Execute Experiment</button>
+            </div>
+        </div>
+    </div>
+
+    <%= render 'experiment_result' %>
+</div>

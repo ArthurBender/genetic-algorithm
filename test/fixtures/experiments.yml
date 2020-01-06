@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  word: MyString
+  population: 1
+  mutation: 1.5
+  generations: 1
+  fitness: 1.5
+
+two:
+  word: MyString
+  population: 1
+  mutation: 1.5
+  generations: 1
+  fitness: 1.5
