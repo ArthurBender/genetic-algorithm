@@ -29,7 +29,12 @@ function discover_word(word, population, mutation) {
         generations_count++;
     }
 
-    var fitness_median = all_fitness_array.reduce((a, b) => a + b, 0) / all_fitness_array.length;
+    var fitness_median = 0;
+    for(var i = 0; i < all_fitness_array.length; i++) {
+        fitness_median += all_fitness_array[i];
+    }
+    fitness_median = fitness_median / all_fitness_array.length;
+
     postMessage([true, fitness_median]);
 };
 
