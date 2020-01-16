@@ -1,5 +1,6 @@
 const ALPHABET_ARRAY = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-                        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' '];
+                        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 
+                        ' ', '.', ',', '\"', '\'', '!', '-', '?'];
 
 self.addEventListener('message', function(e) {
     discover_word(e.data.form_word, e.data.form_population, e.data.form_mutation);
@@ -38,6 +39,9 @@ function firstGeneration(word, population) {
 
 function calculateFitness(generationArray, word) {
     var fitArray = [];
+
+    generationArray = [...new Set(generationArray)];
+
     for(var i = 0; i < generationArray.length; i++) {
         var fitScore = 0;
         for(var l = 0; l < word.length; l++) {

@@ -28,6 +28,8 @@ $(document).ready(function() {
 
     $(".exec-experiment").click(function() {
         if($("#experiment_word").val() && $("#experiment_population").val() && $("#experiment_mutation").val()) {
+            results_history.removeClass('d-none');
+
             var form_word = $("#experiment_word").val();
             var form_population = $("#experiment_population").val();
             var form_mutation = $("#experiment_mutation").val();
