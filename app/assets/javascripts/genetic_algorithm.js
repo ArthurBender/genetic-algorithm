@@ -55,7 +55,14 @@ function firstGeneration(word, population) {
 function calculateFitness(generationArray, word) {
     var fitArray = [];
 
-    generationArray = [...new Set(generationArray)];
+    var uniqGenerationArray = []
+    for(var i = 0; i < generationArray.length; i++) {
+        if(uniqGenerationArray.includes(generationArray[i]) == false) {
+            uniqGenerationArray.push(generationArray[i]);
+        }
+    }
+
+    generationArray = uniqGenerationArray;
 
     for(var i = 0; i < generationArray.length; i++) {
         var fitScore = 0;
