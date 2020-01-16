@@ -17,7 +17,7 @@
 //= require popper
 //= require bootstrap-sprockets
 
-const AIWorker = new Worker("/assets/genetic_algorithm.js");
+var AIWorker = new Worker("/assets/genetic_algorithm.js");
 var process_start_time, process_end_time;
 
 $(document).ready(function() {
