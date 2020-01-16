@@ -28,7 +28,8 @@ $(document).ready(function() {
     var results_time = $("#time_spent");
 
     $(".exec-experiment").click(function() {
-        if($("#experiment_word").val() && $("#experiment_population").val() && $("#experiment_mutation").val()) {
+        var charactersRight = checkCharacters($("#experiment_word").val());
+        if($("#experiment_word").val() && $("#experiment_population").val() && $("#experiment_mutation").val() && charactersRight) {
             $(".exec-experiment").attr('disabled', true);
             $(".save-experiment").attr('disabled', true);
             results_history.removeClass('d-none');
@@ -72,5 +73,20 @@ $(document).ready(function() {
         $("#experiment_time").val(time);
         
         $(".form-submit").click();
-    })
+    });
+
+    function checkCharacters(word) {
+        var wrong_chars = []
+        for(var i = 0; i < word.length; i++) {
+            if(!ALPHABET_ARRAY.includes(word[i])) {
+                wrong_chars.push(word[i]);
+            }
+        }
+
+        if(wrong_chars.length > 0) {
+            alert("Unsuported characters found: " + wrong_chars.join(", "));
+            return false;
+        }
+        return true;
+    }
 })
