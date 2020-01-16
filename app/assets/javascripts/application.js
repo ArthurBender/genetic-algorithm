@@ -41,11 +41,8 @@ $(document).ready(function() {
     })
 
     AIWorker.onmessage = function(e) {
-        if(e.data[0] == "last_element") {
-            result_last.text(e.data[1]);
-        } else if (e.data[0] == "new_generation") {
+            result_last.text(e.data[0]);
             result_generations.text(e.data[1]);
             results_history.text(e.data[2]);
-        }
     }
 })

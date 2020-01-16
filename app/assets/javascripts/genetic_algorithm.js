@@ -9,13 +9,15 @@ self.addEventListener('message', function(e) {
 function discover_word(word, population, mutation) {
     var generations_count = 1;
     var current_generation = firstGeneration(word, population);
-    postMessage(["new_generation", "Generations: " + generations_count, current_generation.join("\n")])
-    while(current_generation != true) {
+    while(bestWord != word) {
         
         var wordsFitness = calculateFitness(current_generation, word);
 
+        var bestWord = findBest(wordsFitness);
+
+        postMessage([bestWord, "Generations: " + generations_count, current_generation.join("\n")])
+
         current_generation = generateNewGeneration(population, wordsFitness, word, mutation);
-        postMessage(["new_generation", "Generations: " + generations_count, current_generation.join("\n")])
         generations_count++;
     }
 };
@@ -28,14 +30,7 @@ function firstGeneration(word, population) {
         for (var n = 0; n < word.length; n++) {
             temp_word += ALPHABET_ARRAY[Math.floor(Math.random() * ALPHABET_ARRAY.length)];
         }
-
-        postMessage(["last_element", temp_word]);
-
-        if (temp_word == word) {
-            return true;
-        } else {
-            seedArray.push(temp_word);
-        }
+        seedArray.push(temp_word);
     }
 
     return seedArray;
@@ -91,12 +86,21 @@ function generateNewGeneration(population, wordsFitness, word, mutation) {
             }
         }
 
-        postMessage(["last_element", child_word]);
         popArray.push(child_word);
-
-        if(child_word == word) {
-            return true;
-        }
     }
     return popArray;
+}
+
+function findBest(wordsFitness) {
+    var bestFitness = 0;
+    var bestWord = "";
+
+    for(var i = 0; i < wordsFitness.length; i++) {
+        if(wordsFitness[i].fitness > bestFitness) {
+            bestFitness = wordsFitness[i].fitness;
+            bestWord = wordsFitness[i].word;
+        }
+    }
+
+    return bestWord;
 }
