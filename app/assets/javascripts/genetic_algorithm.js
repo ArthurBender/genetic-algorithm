@@ -9,6 +9,7 @@ self.addEventListener('message', function(e) {
 
 function discover_word(word, population, mutation) {
     var generations_count = 1;
+    var all_fitness_array = [];
     var current_generation = firstGeneration(word, population);
     while(bestWord != word) {
         
@@ -16,11 +17,18 @@ function discover_word(word, population, mutation) {
 
         var bestWord = findBest(wordsFitness);
 
+        for(var i = 0; i < wordsFitness.length; i++) {
+            all_fitness_array.push(wordsFitness[i].fitness);
+        }
+
         postMessage([bestWord, "Generations: " + generations_count, current_generation.join("\n")])
 
         current_generation = generateNewGeneration(population, wordsFitness, word, mutation);
         generations_count++;
     }
+
+    var fitness_median = all_fitness_array.reduce((a, b) => a + b, 0) / all_fitness_array.length;
+    postMessage([true, fitness_median]);
 };
 
 function firstGeneration(word, population) {
