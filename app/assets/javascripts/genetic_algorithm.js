@@ -9,12 +9,13 @@ self.addEventListener('message', function(e) {
 function discover_word(word, population, mutation) {
     var generations_count = 1;
     var current_generation = firstGeneration(word, population);
+    postMessage(["new_generation", "Generations: " + generations_count, current_generation.join("\n")])
     while(current_generation != true) {
+        
+        var wordsFitness = calculateFitness(current_generation, word);
+
+        current_generation = generateNewGeneration(population, wordsFitness, word, mutation);
         postMessage(["new_generation", "Generations: " + generations_count, current_generation.join("\n")])
-
-        var wordsPercentage = calculateFitness(current_generation, word);
-
-        current_generation = generateNewGeneration(population, wordsPercentage, word, mutation);
         generations_count++;
     }
 };
@@ -28,7 +29,7 @@ function firstGeneration(word, population) {
             temp_word += ALPHABET_ARRAY[Math.floor(Math.random() * ALPHABET_ARRAY.length)];
         }
 
-        postMessage(["last_el", temp_word]);
+        postMessage(["last_element", temp_word]);
 
         if (temp_word == word) {
             return true;
@@ -52,44 +53,31 @@ function calculateFitness(generationArray, word) {
         fitArray.push(fitScore);
     }
 
-    var scorePercentagePiece = 100.0 / fitArray.reduce((a,b) => a + b, 0);
-    var totalPercentage = 0.0;
-    var wordsPercentage = [];
+    var wordsFitness = [];
 
     for(var i = 0; i < fitArray.length; i++) {
-        if(fitArray[i] != 0) {
-            totalPercentage += fitArray[i] * scorePercentagePiece;
-            wordsPercentage.push({percentage: totalPercentage, word: generationArray[i]});
-        } else {
-            wordsPercentage.push({percentage: 0, word: generationArray[i]});
+        wordsFitness.push({fitness: fitArray[i] / word.length, word: generationArray[i]});
+    }
+
+    return wordsFitness;
+}
+
+function generateNewGeneration(population, wordsFitness, word, mutation) {
+    var matingArray = []
+    for(var i = 0; i < wordsFitness.length; i++) {
+        for(var n = 0; n < Math.floor(wordsFitness[i].fitness * 100) + 1; n++) {
+            matingArray.push(wordsFitness[i].word);
         }
     }
 
-    return wordsPercentage;
-}
-
-function generateNewGeneration(population, wordsPercentage, word, mutation) {
     var popArray = [];
     for(var i = 0; i < population; i++) {
         var child_word = "";
         var father_word = "";
-        var random_percentage = Math.random() * 100;
-
-        for(var w = 0; w < wordsPercentage.length; w++) {
-            if(random_percentage <= wordsPercentage[w].percentage) {
-                father_word = wordsPercentage[w].word;
-            }
-        }
-
         var mother_word = "";
-        while(mother_word == "") {
-            random_percentage = Math.random() * 100;
-            for(var w = 0; w < wordsPercentage.length; w++) {
-                if(random_percentage <= wordsPercentage[w].percentage && wordsPercentage[w].word != father_word) {
-                    mother_word = wordsPercentage[w].word
-                }
-            }
-        }
+        
+        father_word = matingArray[Math.floor(Math.random() * matingArray.length)];
+        mother_word = matingArray[Math.floor(Math.random() * matingArray.length)];
 
         var divider = Math.floor(Math.random() * (word.length - 2) + 1);
         child_word += father_word.substr(0, divider);
@@ -103,7 +91,7 @@ function generateNewGeneration(population, wordsPercentage, word, mutation) {
             }
         }
 
-        postMessage(["last_el", child_word]);
+        postMessage(["last_element", child_word]);
         popArray.push(child_word);
 
         if(child_word == word) {
