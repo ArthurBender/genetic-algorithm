@@ -6,6 +6,7 @@ one:
   mutation: 1.5
   generations: 1
   fitness: 1.5
+  time: MyString
 
 two:
   word: MyString
@@ -13,3 +14,4 @@ two:
   mutation: 1.5
   generations: 1
   fitness: 1.5
+  time: MyString

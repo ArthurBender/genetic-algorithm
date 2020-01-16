@@ -12,7 +12,6 @@
 //
 //= require rails-ujs
 //= require activestorage
-//= require turbolinks
 //= require jquery3
 //= require_tree .
 //= require popper
@@ -31,6 +30,7 @@ $(document).ready(function() {
     $(".exec-experiment").click(function() {
         if($("#experiment_word").val() && $("#experiment_population").val() && $("#experiment_mutation").val()) {
             $(".exec-experiment").attr('disabled', true);
+            $(".save-experiment").attr('disabled', true);
             results_history.removeClass('d-none');
 
             var form_word = $("#experiment_word").val();
@@ -53,10 +53,24 @@ $(document).ready(function() {
 
             results_time.text("Time Spent: " + (Math.round((process_end_time - process_start_time) / 100) / 10) + "s");
             $(".exec-experiment").removeAttr('disabled');
+            $(".save-experiment").removeAttr('disabled');
         } else {
             result_last.text(e.data[0]);
             result_generations.text(e.data[1]);
             results_history.text(e.data[2]);
         }
     }
+
+    $(".save-experiment").click(function() {
+        var generations = result_generations.text().substr(12);
+        $("#experiment_generations").val(generations)
+
+        var fitness = result_fitness.text().substr(15);
+        $("#experiment_fitness").val(fitness);
+
+        var time = results_time.text().substr(11);
+        $("#experiment_time").val(time);
+        
+        $(".form-submit").click();
+    })
 })

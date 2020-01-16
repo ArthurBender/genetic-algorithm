@@ -12,7 +12,8 @@
           <th>Mutation</th>
           <th>Generations</th>
           <th>Fitness</th>
-          <th colspan="3"></th>
+          <th>Time</th>
+          <th colspan="1"></th>
         </tr>
       </thead>
 
@@ -24,9 +25,8 @@
             <td><%= experiment.mutation %></td>
             <td><%= experiment.generations %></td>
             <td><%= experiment.fitness %></td>
-            <td><%= link_to 'Show', experiment %></td>
-            <td><%= link_to 'Edit', edit_experiment_path(experiment) %></td>
-            <td><%= link_to 'Destroy', experiment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= experiment.time %></td>
+            <td><%= link_to 'Delete', experiment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>
       </tbody>

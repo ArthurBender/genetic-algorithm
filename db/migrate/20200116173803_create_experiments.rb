@@ -6,6 +6,7 @@ class CreateExperiments < ActiveRecord::Migration[5.2]
       t.float :mutation
       t.integer :generations
       t.float :fitness
+      t.string :time
 
       t.timestamps
     end

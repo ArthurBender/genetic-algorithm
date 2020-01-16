@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_03_150059) do
+ActiveRecord::Schema.define(version: 2020_01_16_173803) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "experiments", force: :cascade do |t|
     t.string "word"
@@ -18,6 +21,7 @@ ActiveRecord::Schema.define(version: 2020_01_03_150059) do
     t.float "mutation"
     t.integer "generations"
     t.float "fitness"
+    t.string "time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

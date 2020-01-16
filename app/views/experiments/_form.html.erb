@@ -11,6 +11,10 @@
     </div>
   <% end %>
 
+  <%= form.hidden_field :generations %>
+  <%= form.hidden_field :fitness %>
+  <%= form.hidden_field :time %>
+
   <div class="form-group row">
     <%= form.label :word, class: "col-4" %>
     <div class="col-8">
@@ -34,5 +38,6 @@
       <small class="form-text text-muted">Recommended: 0.1</small>
     </div>
   </div>
+  <%= form.submit "", class: "form-submit d-none" %>
 <% end %>
 <br>

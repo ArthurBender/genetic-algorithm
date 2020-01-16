@@ -7,9 +7,12 @@
         <%= render 'form', experiment: @experiment %>
 
         <div class="row">
-            <div class="col">
+            <div class="col-12 mb-3">
                 <%= link_to 'Back', experiments_path, class: "btn btn-outline-secondary" %>
                 <button class="exec-experiment btn btn-success float-right">Execute Experiment</button>
+            </div>
+            <div class="col-12">
+                <button class="save-experiment btn btn-primary float-right" disabled="disabled">Save</button>
             </div>
         </div>
     </div>
