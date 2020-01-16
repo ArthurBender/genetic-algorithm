@@ -18,21 +18,34 @@
 //= require popper
 //= require bootstrap-sprockets
 
+const AIWorker = new Worker("/assets/genetic_algorithm.js");
+
 $(document).ready(function() {
+    var result_last = $("#last-result");
+    var result_generations = $("#generations");
+    var result_fitness = $("#fitness");
+    var results_history = $("#results-history");
+
     $(".exec-experiment").click(function() {
         if($("#experiment_word").val() && $("#experiment_population").val() && $("#experiment_mutation").val()) {
             var form_word = $("#experiment_word").val();
             var form_population = $("#experiment_population").val();
             var form_mutation = $("#experiment_mutation").val();
 
-            var result_last = $("#last-result");
-            var result_generations = $("#generations");
-            var result_fitness = $("#fitness");
-            var results_history = $("#results-history")
+            var function_hash = {form_word: form_word, form_population: form_population, form_mutation: form_mutation}
 
-            discover_word(form_word, form_population, form_mutation, result_last, result_generations, result_fitness, results_history);
+            AIWorker.postMessage(function_hash);
         } else {
             alert("Preencha todos os campos do formulário para continuar");
         }
     })
+
+    AIWorker.onmessage = function(e) {
+        if(e.data[0] == "last_element") {
+            result_last.text(e.data[1]);
+        } else if (e.data[0] == "new_generation") {
+            result_generations.text(e.data[1]);
+            results_history.text(e.data[2]);
+        }
+    }
 })

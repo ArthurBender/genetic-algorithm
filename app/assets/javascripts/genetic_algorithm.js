@@ -1,17 +1,25 @@
 const ALPHABET_ARRAY = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
                         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' '];
 
-function discover_word(word, population, mutation, last_result_el, generations_el, fitness_el, results_history_el) {
-    var firstGenerationReturn = firstGeneration(word, population, last_result_el);
-    if (firstGeneration == true) {
-        alert("CARAIO QUE CAGADA IRMAO");
-    } else {
-        results_history_el.text(firstGenerationReturn.join("\n"));
-        console.log(JSON.stringify(calculateFitness(firstGenerationReturn, word)));
+self.addEventListener('message', function(e) {
+    discover_word(e.data.form_word, e.data.form_population, e.data.form_mutation);
+}, false);
+
+
+function discover_word(word, population, mutation) {
+    var generations_count = 1;
+    var current_generation = firstGeneration(word, population);
+    while(current_generation != true) {
+        postMessage(["new_generation", "Generations: " + generations_count, current_generation.join("\n")])
+
+        var wordsPercentage = calculateFitness(current_generation, word);
+
+        current_generation = generateNewGeneration(population, wordsPercentage, word, mutation);
+        generations_count++;
     }
 };
 
-function firstGeneration(word, population, last_result_el) {
+function firstGeneration(word, population) {
     var seedArray = [];
 
     for (var i = 0; i < population; i++) {
@@ -20,7 +28,7 @@ function firstGeneration(word, population, last_result_el) {
             temp_word += ALPHABET_ARRAY[Math.floor(Math.random() * ALPHABET_ARRAY.length)];
         }
 
-        last_result_el.text(temp_word);
+        postMessage(["last_el", temp_word]);
 
         if (temp_word == word) {
             return true;
@@ -58,4 +66,49 @@ function calculateFitness(generationArray, word) {
     }
 
     return wordsPercentage;
+}
+
+function generateNewGeneration(population, wordsPercentage, word, mutation) {
+    var popArray = [];
+    for(var i = 0; i < population; i++) {
+        var child_word = "";
+        var father_word = "";
+        var random_percentage = Math.random() * 100;
+
+        for(var w = 0; w < wordsPercentage.length; w++) {
+            if(random_percentage <= wordsPercentage[w].percentage) {
+                father_word = wordsPercentage[w].word;
+            }
+        }
+
+        var mother_word = "";
+        while(mother_word == "") {
+            random_percentage = Math.random() * 100;
+            for(var w = 0; w < wordsPercentage.length; w++) {
+                if(random_percentage <= wordsPercentage[w].percentage && wordsPercentage[w].word != father_word) {
+                    mother_word = wordsPercentage[w].word
+                }
+            }
+        }
+
+        var divider = Math.floor(Math.random() * (word.length - 2) + 1);
+        child_word += father_word.substr(0, divider);
+        child_word += mother_word.substr(divider);
+
+        for(var l = 0; l < child_word.length; l++) {
+            var mutation_try = Math.random() * 100;
+            if(mutation_try <= mutation) {
+                var mutated_character = ALPHABET_ARRAY[Math.floor(Math.random() * ALPHABET_ARRAY.length)];
+                child_word = child_word.substr(0, l) + mutated_character + child_word.substr(l+1);
+            }
+        }
+
+        postMessage(["last_el", child_word]);
+        popArray.push(child_word);
+
+        if(child_word == word) {
+            return true;
+        }
+    }
+    return popArray;
 }
