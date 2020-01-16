@@ -16,7 +16,9 @@
           <th>Generations</th>
           <th>Fitness</th>
           <th>Time</th>
-          <th colspan="1"></th>
+          <% if cookies[:superuser] == 'true' %>
+            <th colspan="1"></th>
+          <% end %>
         </tr>
       </thead>
 
@@ -29,7 +31,9 @@
             <td><%= experiment.generations %></td>
             <td><%= experiment.fitness %></td>
             <td><%= experiment.time %></td>
-            <td><%= link_to 'Delete', experiment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% if cookies[:superuser] == 'true' %>
+              <td><%= link_to 'Delete', experiment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>
