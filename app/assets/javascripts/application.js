@@ -89,4 +89,17 @@ $(document).ready(function() {
         }
         return true;
     }
+
+    $('.ga-form').on('keyup keypress', function(e) {
+        var keyCode = e.keyCode || e.which;
+        if (keyCode === 13) {
+            $(".exec-experiment").click();
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    $('.ga-form .form-control').keyup(function() {
+        $(".save-experiment").attr('disabled', true);
+    })
 })
