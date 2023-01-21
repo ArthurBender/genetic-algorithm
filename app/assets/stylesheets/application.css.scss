@@ -16,8 +16,12 @@
 
  @import "bootstrap";
 
+ html, body {
+   height: 100%;
+ }
+
  body {
-    background-color: #444;
+    background: linear-gradient(to bottom, #999 0%, #444 100%);
  }
 
  body > .container {
