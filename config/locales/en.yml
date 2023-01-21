@@ -31,6 +31,8 @@
 
 en:
   views:
+    genetic_algorithm: 'Genetic Algorithm'
+
     experiments: 'Experiments'
     word: 'Word'
     population: 'Population'
@@ -48,3 +50,7 @@ en:
     back: 'Back'
     execute_experiment: 'Execute Experiment'
     save: 'Save'
+
+    experiment_creation_text: 'Experiment was successfully created.'
+    experiment_delete_text_success: 'Experiment was successfully destroyed.'
+    experiment_delete_text_failure: 'Problem when destroying experiment.'

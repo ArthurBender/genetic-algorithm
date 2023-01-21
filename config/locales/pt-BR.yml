@@ -1,5 +1,7 @@
 pt-BR:
   views:
+    genetic_algorithm: 'Algorítmo Genético'
+
     experiments: 'Experimentos'
     word: 'Palavra'
     population: 'População'
@@ -17,3 +19,7 @@ pt-BR:
     back: 'Voltar'
     execute_experiment: 'Executar Experimento'
     save: 'Salvar'
+
+    experiment_creation_text: 'Experimento criado com sucesso.'
+    experiment_delete_text_success: 'Experimento removido com sucesso.'
+    experiment_delete_text_failure: 'Problema ao remover experimento.'

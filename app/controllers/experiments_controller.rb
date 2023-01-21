@@ -29,7 +29,7 @@ class ExperimentsController < ApplicationController
       cookies.permanent['experiments'] = experiments_list.to_json
 
       respond_to do |format|
-        format.html { redirect_to root_url, notice: 'Experiment was successfully created.' }
+        format.html { redirect_to root_url, notice: t('views.experiment_creation_text') }
         format.json { render :index, status: :created }
       end
     rescue Exception => e
@@ -52,13 +52,13 @@ class ExperimentsController < ApplicationController
       cookies.permanent['experiments'] = experiments_list.to_json
 
       respond_to do |format|
-        format.html { redirect_to root_url, notice: 'Experiment was successfully destroyed.' }
+        format.html { redirect_to root_url, notice: t('views.experiment_delete_text_success') }
         format.json { head :no_content }
       end
     rescue Exception => e
       puts e.message
       respond_to do |format|
-        format.html { redirect_to root_url, alert: 'Problem when destroying experiment.' }
+        format.html { redirect_to root_url, alert: t('views.experiment_delete_text_failure') }
         format.json { render json: e.message.to_json, status: :unprocessable_entity }
       end
     end
