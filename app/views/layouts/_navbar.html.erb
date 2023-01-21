@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <%= link_to root_url, class: "navbar-brand" do %>
+        <%= image_tag("monkey.png", height: '26', width: '28', class: "d-inline-block align-text-top") %>
+        <%= t('genetic_algorithm') %>
+    <% end %>
+    <form class="d-flex ms-auto">
+        <span class="navbar-text me-3 d-none d-md-block">
+            Idioma / Language
+        </span>
+        <select class="custom-select" name="language-select" id="language-select">
+            <option value="pt-BR">🇧🇷 Português</option>
+            <option value="en">🇺🇸 English</option>
+        </select>
+    </form>
+  </div>
+</nav>

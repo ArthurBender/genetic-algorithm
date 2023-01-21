@@ -16,12 +16,33 @@
 
  @import "bootstrap";
 
+ body {
+    background-color: #444;
+ }
+
+ body > .container {
+    margin-top: calc(max(7vh, 50px));
+ }
+
+ .alert {
+    margin-top: -25px;
+ }
+
  .page-title {
      margin-bottom: 1.5rem;
      text-decoration: underline;
  }
 
+ #experiments-table-holder {
+    max-height: calc(max(55vh, 400px));
+    overflow-y: auto;
+ }
+
  #results-history {
-     max-height: 400px;
+     max-height: calc(max(50vh, 400px));
      overflow-y: scroll;
+ }
+ 
+ #language-select {
+    height: 40px;
  }
