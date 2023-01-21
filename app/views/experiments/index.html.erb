@@ -1,5 +1,5 @@
 <div class="row">
-  <h1 class="col page-title">Experiments</h1>
+  <h1 class="col page-title"><%= t('views.experiments') %></h1>
   <div class="col-3">
     <img src="https://cdn0.iconfinder.com/data/icons/monkey-2/119/monkey-007-512.png" height="50" class="float-right mt-2">
   </div>
@@ -10,12 +10,12 @@
     <table class="table table-sm table-hover">
       <thead class="thead-dark">
         <tr>
-          <th>Word</th>
-          <th>Population</th>
-          <th>Mutation</th>
-          <th>Generations</th>
-          <th>Fitness</th>
-          <th>Time</th>
+          <th><%= t('views.word') %></th>
+          <th><%= t('views.population') %></th>
+          <th><%= t('views.mutation') %></th>
+          <th><%= t('views.generations') %></th>
+          <th><%= t('views.fitness') %></th>
+          <th><%= t('views.time') %></th>
           <th colspan="1"></th>
         </tr>
       </thead>
@@ -29,7 +29,7 @@
             <td><%= experiment['generations'] %></td>
             <td><%= experiment['fitness'] %></td>
             <td><%= experiment['time'] %></td>
-            <td><%= link_to 'Delete', experiment_path(id: i), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to t('views.delete'), experiment_path(id: i), method: :delete, data: { confirm: t('views.confirm_delete') } %></td>
           </tr>
         <% end %>
       </tbody>
@@ -39,6 +39,6 @@
 
 <div class="row">
   <div class="col">
-    <%= link_to 'New Experiment', new_experiment_path, class: "btn btn-primary" %>
+    <%= link_to t('views.new_experiment'), new_experiment_path, class: "btn btn-primary" %>
   </div>
 </div>

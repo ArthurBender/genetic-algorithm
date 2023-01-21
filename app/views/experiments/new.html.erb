@@ -1,5 +1,5 @@
 <div class="row">
-  <h1 class="col page-title">New Experiment</h1>
+  <h1 class="col page-title"><%= t('views.new_experiment') %></h1>
 </div>
 
 <div class="row">
@@ -8,11 +8,11 @@
 
         <div class="row">
             <div class="col-12 mb-3">
-                <%= link_to 'Back', experiments_path, class: "btn btn-outline-secondary" %>
-                <button class="exec-experiment btn btn-success float-right">Execute Experiment</button>
+                <%= link_to t('views.back'), experiments_path, class: "btn btn-outline-secondary" %>
+                <button class="exec-experiment btn btn-success float-right"><%= t('views.execute_experiment') %></button>
             </div>
             <div class="col-12">
-                <button class="save-experiment btn btn-primary float-right" disabled="disabled">Save</button>
+                <button class="save-experiment btn btn-primary float-right" disabled="disabled"><%= t('views.save') %></button>
             </div>
         </div>
     </div>

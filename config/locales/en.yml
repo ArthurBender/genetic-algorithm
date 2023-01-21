@@ -30,4 +30,21 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  views:
+    experiments: 'Experiments'
+    word: 'Word'
+    population: 'Population'
+    mutation: 'Mutation'
+    generations: 'Generations'
+    fitness: 'Fitness'
+    time: 'Time'
+    delete: 'Delete'
+    confirm_delete: 'Are you sure you want do delete the experiment?'
+    new_experiment: 'New Experiment'
+
+    word_hint: 'Recommended: less than 20 characters'
+    population_hint: 'Recommended: 1000'
+    mutation_hint: 'Recommended: 0.1'
+    back: 'Back'
+    execute_experiment: 'Execute Experiment'
+    save: 'Save'

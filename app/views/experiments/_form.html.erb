@@ -16,26 +16,26 @@
   <%= form.hidden_field :time %>
 
   <div class="form-group row">
-    <%= form.label :word, class: "col-4" %>
+    <%= form.label t('views.word') + ":", class: "col-4" %>
     <div class="col-8">
       <%= form.text_field :word, class: "form-control" %>
-      <small class="form-text text-muted">Recommended: less than 20 characters</small>
+      <small class="form-text text-muted"><%= t('views.word_hint') %></small>
     </div>
   </div>
 
   <div class="form-group row">
-    <%= form.label :population, class: "col-4" %>
+    <%= form.label t('views.population') + ":", class: "col-4" %>
     <div class="col-8">
       <%= form.number_field :population, class: "form-control" %>
-      <small class="form-text text-muted">Recommended: 1000</small>
+      <small class="form-text text-muted"><%= t('views.population_hint') %></small>
     </div>
   </div>
 
   <div class="form-group row">
-    <%= form.label :mutation, class: "col-4" %>
+    <%= form.label t('views.mutation') + ":", class: "col-4" %>
     <div class="col-8">
       <%= form.number_field :mutation, step: :any, class: "form-control" %>
-      <small class="form-text text-muted">Recommended: 0.1</small>
+      <small class="form-text text-muted"><%= t('views.mutation_hint') %></small>
     </div>
   </div>
   <%= form.submit "", class: "form-submit d-none" %>

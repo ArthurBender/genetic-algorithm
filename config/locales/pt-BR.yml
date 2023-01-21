@@ -1,0 +1,19 @@
+pt-BR:
+  views:
+    experiments: 'Experimentos'
+    word: 'Palavra'
+    population: 'População'
+    mutation: 'Mutação'
+    generations: 'Gerações'
+    fitness: 'Fitness'
+    time: 'Tempo'
+    delete: 'Remover'
+    confirm_delete: 'Tem certeza que quer remover o experimento?'
+    new_experiment: 'Novo Experimento'
+
+    word_hint: 'Recomendado: menos de 20 caracteres'
+    population_hint: 'Recomendado: 1000'
+    mutation_hint: 'Recomendado: 0.1'
+    back: 'Voltar'
+    execute_experiment: 'Executar Experimento'
+    save: 'Salvar'
