@@ -1,10 +1,9 @@
 class ExperimentsController < ApplicationController
-  before_action :set_experiment, only: [:destroy]
-
   # GET /experiments
   # GET /experiments.json
   def index
-    @experiments = Experiment.all
+    @experiments_list = []
+    @experiments_list = JSON.parse(cookies[:experiments]) if cookies[:experiments]
   end
 
   # GET /experiments/new
@@ -15,16 +14,26 @@ class ExperimentsController < ApplicationController
   # POST /experiments
   # POST /experiments.json
   def create
-    puts experiment_params
-    @experiment = Experiment.new(experiment_params)
+    begin
+      experiments_list = []
+      experiments_list = JSON.parse(cookies[:experiments]) if cookies[:experiments]
+      
+      new_experiment = {}
+      ['word', 'population', 'mutation', 'generations', 'fitness', 'time'].each do |experiment_field|
+        new_experiment[experiment_field] = experiment_params[experiment_field]
+      end
+      experiments_list.push(new_experiment)
 
-    respond_to do |format|
-      if @experiment.save
+      cookies.permanent['experiments'] = experiments_list.to_json
+
+      respond_to do |format|
         format.html { redirect_to root_url, notice: 'Experiment was successfully created.' }
         format.json { render :index, status: :created }
-      else
+      end
+    rescue Exception => e
+      respond_to do |format|
         format.html { render :new }
-        format.json { render json: @experiment.errors, status: :unprocessable_entity }
+        format.json { render json: e.message.to_json, status: :unprocessable_entity }
       end
     end
   end
@@ -32,19 +41,28 @@ class ExperimentsController < ApplicationController
   # DELETE /experiments/1
   # DELETE /experiments/1.json
   def destroy
-    @experiment.destroy
-    respond_to do |format|
-      format.html { redirect_to experiments_url, notice: 'Experiment was successfully destroyed.' }
-      format.json { head :no_content }
+    begin
+      experiments_list = JSON.parse(cookies[:experiments]) if cookies[:experiments]
+
+      experiments_list.delete_at(params[:id].to_i)
+
+
+      cookies.permanent['experiments'] = experiments_list.to_json
+
+      respond_to do |format|
+        format.html { redirect_to root_url, notice: 'Experiment was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    rescue Exception => e
+      puts e.message
+      respond_to do |format|
+        format.html { redirect_to root_url, alert: 'Problem when destroying experiment.' }
+        format.json { render json: e.message.to_json, status: :unprocessable_entity }
+      end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_experiment
-      @experiment = Experiment.find(params[:id])
-    end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def experiment_params
       params.require(:experiment).permit(:word, :population, :mutation, :generations, :fitness, :time)

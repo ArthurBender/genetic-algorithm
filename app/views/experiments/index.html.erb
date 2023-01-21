@@ -16,24 +16,20 @@
           <th>Generations</th>
           <th>Fitness</th>
           <th>Time</th>
-          <% if cookies[:superuser] == 'true' %>
-            <th colspan="1"></th>
-          <% end %>
+          <th colspan="1"></th>
         </tr>
       </thead>
 
       <tbody>
-        <% @experiments.each do |experiment| %>
+        <% @experiments_list.each_with_index do |experiment, i| %>
           <tr>
-            <td><%= experiment.word %></td>
-            <td><%= experiment.population %></td>
-            <td><%= experiment.mutation %></td>
-            <td><%= experiment.generations %></td>
-            <td><%= experiment.fitness %></td>
-            <td><%= experiment.time %></td>
-            <% if cookies[:superuser] == 'true' %>
-              <td><%= link_to 'Delete', experiment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            <% end %>
+            <td><%= experiment['word'] %></td>
+            <td><%= experiment['population'] %></td>
+            <td><%= experiment['mutation'] %></td>
+            <td><%= experiment['generations'] %></td>
+            <td><%= experiment['fitness'] %></td>
+            <td><%= experiment['time'] %></td>
+            <td><%= link_to 'Delete', experiment_path(id: i), method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>
       </tbody>
