@@ -9,8 +9,8 @@
             Idioma / Language
         </span>
         <select class="custom-select" name="language-select" id="language-select">
-            <option value="pt-BR">🇧🇷 Português</option>
-            <option value="en">🇺🇸 English</option>
+            <option value="pt-BR" <%= 'selected' if cookies['lang'] == 'pt-BR' %>>🇧🇷 Português</option>
+            <option value="en" <%= 'selected' if cookies['lang'] == 'en' %>>🇺🇸 English</option>
         </select>
     </form>
   </div>

@@ -2,8 +2,6 @@ class ExperimentsController < ApplicationController
   # GET /experiments
   # GET /experiments.json
   def index
-    I18n.locale = 'pt-BR'
-
     @experiments_list = []
     @experiments_list = JSON.parse(cookies[:experiments]) if cookies[:experiments]
   end

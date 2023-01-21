@@ -21,6 +21,20 @@ var AIWorker = new Worker("/assets/genetic_algorithm.js");
 var process_start_time, process_end_time;
 
 $(document).ready(function() {
+    $("#language-select").change(function() {
+        $.ajax({
+            url: '/update_language',
+            type: 'GET',
+            dataType: 'json',
+            data: {'lang': $(this).val()},
+            success: function(result) {
+                if (result['status']) {
+                    window.location.reload();
+                }
+            },
+        })
+    });
+
     var result_last = $("#last-result");
     var result_generations = $("#generations > .param-value");
     var result_fitness = $("#fitness > .param-value");
