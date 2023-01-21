@@ -23,7 +23,7 @@ function discover_word(word, population, mutation) {
             all_fitness_array.push(wordsFitness[i].fitness);
         }
 
-        postMessage([bestWord, "Generations: " + generations_count, current_generation.join("\n")])
+        postMessage([bestWord, generations_count, current_generation.join("\n")])
 
         current_generation = generateNewGeneration(population, wordsFitness, word, mutation);
         generations_count++;
