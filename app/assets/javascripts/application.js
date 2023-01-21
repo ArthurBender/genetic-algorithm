@@ -64,13 +64,13 @@ $(document).ready(function() {
     }
 
     $(".save-experiment").click(function() {
-        var generations = result_generations.text().substr(13);
+        var generations = result_generations.text();
         $("#experiment_generations").val(generations)
 
-        var fitness = result_fitness.text().substr(16);
+        var fitness = result_fitness.text();
         $("#experiment_fitness").val(fitness);
 
-        var time = results_time.text().substr(12);
+        var time = results_time.text();
         $("#experiment_time").val(time);
         
         $(".form-submit").click();
