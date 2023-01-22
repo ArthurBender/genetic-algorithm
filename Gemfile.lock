@@ -125,7 +125,6 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.14.0-x86_64-linux)
       racc (~> 1.4)
-    pg (1.4.5)
     popper_js (2.11.6)
     puma (6.0.2)
       nio4r (~> 2.0)
@@ -209,7 +208,6 @@ DEPENDENCIES
   coffee-rails
   jquery-rails
   listen
-  pg
   puma
   rails
   sass-rails

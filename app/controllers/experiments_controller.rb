@@ -8,7 +8,6 @@ class ExperimentsController < ApplicationController
 
   # GET /experiments/new
   def new
-    @experiment = Experiment.new
   end
 
   # POST /experiments
@@ -20,7 +19,7 @@ class ExperimentsController < ApplicationController
       
       new_experiment = {}
       ['word', 'population', 'mutation', 'generations', 'fitness', 'time'].each do |experiment_field|
-        new_experiment[experiment_field] = experiment_params[experiment_field]
+        new_experiment[experiment_field] = params["experiment"][experiment_field]
       end
       experiments_list.push(new_experiment)
 
@@ -31,6 +30,7 @@ class ExperimentsController < ApplicationController
         format.json { render :index, status: :created }
       end
     rescue Exception => e
+      puts e
       respond_to do |format|
         format.html { render :new }
         format.json { render json: e.message.to_json, status: :unprocessable_entity }
@@ -61,10 +61,4 @@ class ExperimentsController < ApplicationController
       end
     end
   end
-
-  private
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def experiment_params
-      params.require(:experiment).permit(:word, :population, :mutation, :generations, :fitness, :time)
-    end
 end
