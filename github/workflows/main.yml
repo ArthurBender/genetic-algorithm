@@ -1,0 +1,20 @@
+name: genetic-algorithm
+
+on:
+  push:
+   branches: [ master ]
+  pull_request:
+    branches: [ master ]
+      
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build & Push Image
+      run: |
+        echo "${{ secrets.DOCKERPASS }}" | docker login -u "arthurllbender" --password-stdin
+        docker image build -t arthurllbender/genetic-algorithm:latest .
+        docker push arthurllbender/genetic-algorithm:latest
