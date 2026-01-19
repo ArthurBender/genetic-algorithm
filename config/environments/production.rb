@@ -23,7 +23,7 @@ Rails.application.configure do
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :uglifier
+  config.assets.js_compressor = nil
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
@@ -81,6 +81,7 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
   
   config.hosts << "ga.arthur-bender.com"
+  config.hosts << "localhost"
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
